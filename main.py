@@ -1,1 +1,1 @@
-# This is the main file of the chat bot
+# This is the main file of the chatbot
