@@ -2,16 +2,30 @@
 import tkinter as tk
 import os
 
-from knowledge_base import knowledge_base
+from knowledge_base import knowledge_base as kb
+from utils.search import find_key_or_synonyms as sks
 
 # Function to search an answer in the knowledge base...
 def search_answer(qst):
+
+    if qst is None:
+        return "No has proporcionado nada"
+
     search_qst = qst.lower()
 
-    for key, answer in knowledge_base.items():
-        if key in search_qst:
+    word = sks(search_qst)
+
+    # if the function returns none, I indicate that the question was not understood...
+    if word is None:
+        return "No entendi tu pregunta, ¿podrías proporcionar más información?"
+
+    # if the function returned a word, I search taht word in the knowledge base the key to obtain the answer...
+    # and return the answer to the user...
+    for key, answer in kb.items():
+        if key == word:
             return answer
-    return "No he entendido completamente tu pregunta. ¿Podrías proporcionar más detalles?"
+
+
 
 # function for handling the interaction with the user in the GUI...
 def send_msg():
